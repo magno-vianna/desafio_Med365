@@ -18,5 +18,7 @@ const Route = use('Route')
 
 Route.post('/register', 'AuthController.register')
 Route.post('/authenticate', 'AuthController.authenticate')
+Route.post('/quizzes', 'QuizController.create')
+Route.get('/quizzes', 'QuizController.index')
 
 Route.get('/app', 'AppController.index').middleware(['auth'])
