@@ -17,7 +17,9 @@ class QuestionController {
     }
   }
 
-  async index ({ request, response, view }) {
+  async index () {
+    const allQuestions = await Question.all()
+    return allQuestions
   }
 }
 

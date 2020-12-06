@@ -16,11 +16,20 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+// Rota de criação de usuários
 Route.post('/register', 'AuthController.register')
-Route.post('/authenticate', 'AuthController.authenticate')
-Route.post('/quizzes', 'QuizController.create')
 
+// Rota de autenticação de usuários
+Route.post('/authenticate', 'AuthController.authenticate')
+
+// Rota de criação e listagem de questionários
+Route.post('/quizzes', 'QuizController.create')
 Route.get('/quizzes', 'QuizController.index')
+
 Route.get('/app', 'AppController.index').middleware(['auth'])
 
+// Rota de criação e listagem de perguntas
 Route.resource('quizzes.questions', 'QuestionController').apiOnly()
+
+// Rota de criação e listagem de respostas
+Route.resource('questions.answer', 'AnswerController').apiOnly()
