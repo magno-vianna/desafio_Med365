@@ -39,6 +39,7 @@ class UserAnswerRegisterSchema extends Schema {
         .inTable('answers')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
+      table.timestamps()
     })
   }
 

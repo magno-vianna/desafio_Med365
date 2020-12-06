@@ -16,6 +16,7 @@ class QuizSchema extends Schema {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
+      table.timestamps()
     })
   }
 
