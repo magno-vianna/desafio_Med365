@@ -6,8 +6,8 @@ class AnswerController {
   async store ({ params, request, response }) {
     try {
       const body = request.all()
-      if (!body || !body.options) throw new Error('Parameters options is required')
-      const options = body.options
+      if (!body || !body.option) throw new Error('Parameters options is required')
+      const options = body.option
       const answer = await Answer.create({ option: options, question_id: params.questions_id })
 
       return response.status(201).send(answer)
@@ -20,6 +20,12 @@ class AnswerController {
   async index () {
     const answers = await Answer.all()
     return answers
+  }
+
+  async destroy ({ params }) {
+    const answers = await Answer.findOrFail(params.id)
+
+    await answers.delete()
   }
 }
 

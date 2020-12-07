@@ -1,18 +1,13 @@
-# Use root/example as user/password credentials
-version: '3.1'
+
+version: '3'
 
 services:
-
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
+  mysqlsrv:
+    image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: adm123
-      MYSQL_DATABASE: "med365_db"
-
-  adminer:
-    image: mysql
-    restart: always
+      MYSQL_ROOT_PASSWORD: "med365"
+      MYSQL_DATABASE: "adonis"
     ports:
-      - 8080:8080
+      - "3306:3306"
+   
+

@@ -18,6 +18,12 @@ class QuizController {
     const quizzes = await Quiz.all()
     return quizzes
   }
+
+  async destroy ({ params }) {
+    const quiz = await Quiz.findOrFail(params.id)
+
+    await quiz.delete()
+  }
 }
 
 module.exports = QuizController

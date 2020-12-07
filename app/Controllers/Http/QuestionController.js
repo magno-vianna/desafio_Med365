@@ -21,6 +21,12 @@ class QuestionController {
     const allQuestions = await Question.all()
     return allQuestions
   }
+
+  async destroy ({ params }) {
+    const question = await Question.findOrFail(params.id)
+
+    await question.delete()
+  }
 }
 
 module.exports = QuestionController
