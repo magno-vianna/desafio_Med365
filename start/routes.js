@@ -22,15 +22,14 @@ Route.post('/register', 'AuthController.register')
 // Rota de autenticação de usuários.
 Route.post('/authenticate', 'AuthController.authenticate')
 
-Route.get('/app', 'AppController.index').middleware(['auth'])
-
 // Rota de criação, listagem e remoção de questionários.
-Route.post('/quizzes', 'QuizController.create')
-Route.get('/quizzes', 'QuizController.index')
-Route.delete('/quizzes/:id', 'QuizController.destroy')
+Route.resource('quizzes', 'QuizController').apiOnly().middleware(['auth'])
 
 // Rota de criação, listagem  de perguntas.
-Route.resource('quizzes.questions', 'QuestionController').apiOnly()
+Route.resource('quizzes.questions', 'QuestionController').apiOnly().middleware(['auth'])
 
-// Rota de criação, listagem e remoção de respostasç
-Route.resource('questions.answer', 'AnswerController').apiOnly()
+// Rota de criação, listagem e remoção de respostas.
+Route.resource('questions.answer', 'AnswerController').apiOnly().middleware(['auth'])
+
+// Rota de interação com o usuário.
+Route.resource('UserRegister', 'UserRegisterController').apiOnly().middleware(['auth'])
