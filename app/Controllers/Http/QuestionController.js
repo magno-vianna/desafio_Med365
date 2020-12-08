@@ -9,8 +9,15 @@ class QuestionController {
       if (!body || !body.description) throw new Error('Parameters descripton is required')
       const description = body.description
 
-      const questionExists = await Question.findBy('description', description)
-      if (questionExists) throw new Error('Quiz already exists')
+      const questionExists = await Question
+        .query()
+        .where('description', description)
+        .where('quiz_id', params.quizzes_id)
+        .fetch()
+
+      console.log(questionExists.rows.length)
+
+      if (questionExists.rows.length) throw new Error('Question already exists')
 
       const question = await Question.create({ description: description, quiz_id: params.quizzes_id })
 

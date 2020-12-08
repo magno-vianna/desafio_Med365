@@ -9,8 +9,13 @@ class AnswerController {
       if (!body || !body.option) throw new Error('Parameters options is required')
       const options = body.option
 
-      const answerExists = await Answer.findBy('option', options)
-      if (answerExists) throw new Error('Answer already exists')
+      const answerExists = await Answer
+        .query()
+        .where('option', options)
+        .where('question_id', params.questions_id)
+        .fetch()
+
+      if (answerExists.rows.length) throw new Error('Answer already exists')
 
       const answer = await Answer.create({ option: options, question_id: params.questions_id })
 

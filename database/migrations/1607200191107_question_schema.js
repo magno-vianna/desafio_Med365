@@ -7,7 +7,7 @@ class QuestionSchema extends Schema {
   up () {
     this.create('questions', (table) => {
       table.increments()
-      table.string('description', 300).notNullable().unique()
+      table.string('description', 300).notNullable()
       table
         .integer('quiz_id')
         .unsigned()

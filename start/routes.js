@@ -32,4 +32,4 @@ Route.resource('quizzes.questions', 'QuestionController').apiOnly().middleware([
 Route.resource('questions.answer', 'AnswerController').apiOnly().middleware(['auth'])
 
 // Rota de interação com o usuário.
-Route.resource('UserRegister', 'UserRegisterController').apiOnly().middleware(['auth'])
+Route.resource('userRegister', 'UserRegisterController').apiOnly().middleware(['auth'])
