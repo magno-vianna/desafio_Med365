@@ -3,11 +3,15 @@
 const Quiz = use('App/Models/Quiz')
 
 class QuizController {
-  async create ({ request, response }) {
+  async store ({ request, auth, response }) {
     try {
       const body = request.all()
       if (!body || !body.name) throw new Error('Name parameter is required')
-      const quiz = await Quiz.create({ name: body.name, user_id: 1 })
+
+      const quizExists = await Quiz.findBy('name', body.name)
+      if (quizExists) throw new Error('Quiz already exists')
+
+      const quiz = await Quiz.create({ name: body.name, user_id: auth.jwtPayload.uid })
       return quiz
     } catch (error) {
       response.status(400).send(error.message)

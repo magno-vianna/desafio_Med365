@@ -8,6 +8,10 @@ class AnswerController {
       const body = request.all()
       if (!body || !body.option) throw new Error('Parameters options is required')
       const options = body.option
+
+      const answerExists = await Answer.findBy('option', options)
+      if (answerExists) throw new Error('Answer already exists')
+
       const answer = await Answer.create({ option: options, question_id: params.questions_id })
 
       return response.status(201).send(answer)
