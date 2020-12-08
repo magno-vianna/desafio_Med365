@@ -1,28 +1,32 @@
-# Adonis API application
+# Med365 API
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+API de gerenciamento de pacientes 
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+Requesitos: 
+* Node.js - [Instalação Node.js 12](https://nodejs.org/en/), including the NPM package management tool.
+* Docker & Docker-Compose - [Instalação Docker community edition](https://hub.docker.com/search/?type=edition&offering=community)
 
-## Setup
-
-Use the adonis command to install the blueprint
+### Dependências
+Use o instalador do NPM para instalar as dependências.
 
 ```bash
-adonis new yardstick --api-only
+npm install
 ```
 
-or manually clone the repo and then run `npm install`.
-
-
 ### Migrations
-
-Run the following command to run startup migrations.
+Rode o comando run para subir as tabelas para o database.
 
 ```js
 adonis migration:run
 ```
+
+### Start
+Para startar o projeto utilize:
+
+```bash
+docker-compose up 
+npm start
+```
+
+
+
