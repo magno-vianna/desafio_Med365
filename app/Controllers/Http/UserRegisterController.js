@@ -1,20 +1,24 @@
 'use strict'
 
-const Quiz = use('App/Models/Quiz')
+const UserAnswerRegister = use('App/Models/UserAnswerRegister')
 
 class UserRegisterController {
-  async index () {
-    const quiz = await Quiz
-      .query()
-      .setHidden(['created_at', 'updated_at', 'user_id'])
-      .with('questions', questionsQuery => {
-        questionsQuery.setHidden(['created_at', 'updated_at', 'quiz_id'])
-          .with('answers', asnwersQuery => {
-            asnwersQuery.setHidden(['created_at', 'updated_at', 'question_id'])
-          })
+  async store ({ request, auth, response }) {
+    try {
+      const body = request.all()
+      const { quizId, questions } = body
+      questions.forEach(element => {
+        const { questionId, answerOptionIds } = element
+        const answerIds = !Array.isArray(answerOptionIds) ? Array.of(answerOptionIds) : answerOptionIds
+        answerIds.forEach(async answerId => {
+          console.log(`Salvando quizId:${quizId} questionId:${questionId} answerId:${answerId}`)
+          await UserAnswerRegister.create({ user_id: auth.jwtPayload.uid, quiz_id: quizId, question_id: questionId, answer_id: answerId })
+        })
       })
-      .fetch()
-    return quiz
+    } catch (error) {
+      console.log(error)
+      response.status(400).send(error.message)
+    }
   }
 }
 
