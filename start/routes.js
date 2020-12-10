@@ -31,5 +31,11 @@ Route.resource('quizzes.questions', 'QuestionController').apiOnly().middleware([
 // Rota de criação, listagem e remoção de respostas.
 Route.resource('questions.answer', 'AnswerController').apiOnly().middleware(['auth'])
 
-// Rota de interação com o usuário.
-Route.resource('userRegister', 'UserRegisterController').apiOnly().middleware(['auth'])
+// Rota de resposta das perguntas fornecidas.
+Route.post('userRegister', 'UserRegisterController.store').middleware(['auth'])
+
+// Rota para listar os dados respondidos pelos usário.
+Route.get('userRegister', 'UserRegisterController.index').middleware(['auth'])
+
+// Rota para listar todos os Quizzes de forma pública.
+Route.get('quizzesPublic', 'QuizzesPublicController.index')
