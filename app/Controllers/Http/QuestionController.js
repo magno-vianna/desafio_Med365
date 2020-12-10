@@ -1,6 +1,7 @@
 'use strict'
 
 const Question = use('App/Models/Question')
+const Quiz = use('App/Models/Quiz')
 
 class QuestionController {
   async store ({ params, request, response }) {
@@ -9,13 +10,13 @@ class QuestionController {
       if (!body || !body.description) throw new Error('Parameters descripton is required')
       const description = body.description
 
+      if (Quiz.findBy('id', params.quizzes_id)) throw Error('Quizz not exists ')
+
       const questionExists = await Question
         .query()
         .where('description', description)
         .where('quiz_id', params.quizzes_id)
         .fetch()
-
-      console.log(questionExists.rows.length)
 
       if (questionExists.rows.length) throw new Error('Question already exists')
 
