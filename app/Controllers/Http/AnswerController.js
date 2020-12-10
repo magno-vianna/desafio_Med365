@@ -1,6 +1,7 @@
 'use strict'
 
 const Answer = use('App/Models/Answer')
+const Question = use('App/Models/Question')
 
 class AnswerController {
   async store ({ params, request, response }) {
@@ -8,6 +9,8 @@ class AnswerController {
       const body = request.all()
       if (!body || !body.option) throw new Error('Parameters options is required')
       const options = body.option
+
+      if (Question.findBy('id', params.questions_id)) throw new Error('Question already exists')
 
       const answerExists = await Answer
         .query()
